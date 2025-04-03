@@ -1,0 +1,189 @@
+# Open PowerShell
+
+# To Check the latest version of Azure PowerShell
+Find-Module -Name Az
+
+# To install the Azure PowerShell
+Install-Module -Name Az
+#or
+Find-Module -Name Az | Install-Module
+
+# To update the Azure PowerShell
+Install-Module -Name Az -Force
+#or
+Update-Module -Name Az
+
+Connect-AzAccount
+# Follow the on-screen instructions to authenticate in the web browser.
+
+Connect-AzAccount -Scope Process
+
+
+# Sign in with a service principal
+
+# An Azure service principal is an identity created for use with applications, hosted services, and automated tools to access Azure resources.
+
+## Create Service Principal
+$DemoSP = New-AzADServicePrincipal -DisplayName DemoBITPro -Role Reader
+
+## Login using service principal
+$TenantId = '<tenant id>'
+$ApplicationId = '<application id>'
+$Secret = '<sp secret>'
+$Credential = [PSCredential]::New($ApplicationId, $Secret)
+Connect-AzAccount -ServicePrincipal -Credential $Credential -TenantId $TenantId
+
+# Replace with your Tenant ID
+$TenantId = '<tenant id>'
+
+# Replace with your Application (Client) ID
+$ApplicationId = '<application id>'
+
+# Replace with the path to your certificate file (.pfx or .cer)
+$CertificatePath = '<path to your certificate file>'
+
+# Replace with the certificate password if applicable (for .pfx files)
+$CertificatePassword = '<certificate password>'
+
+# Get the certificate object
+if ($CertificatePassword) {
+  $Certificate = Get-PfxCertificate -FilePath $CertificatePath -Password $CertificatePassword
+} else {
+  $Certificate = Get-Item -Path Cert:\CurrentUser\My\<Thumbprint>  # Or appropriate certificate store location
+}
+
+# Connect to Azure using the service principal and certificate
+Connect-AzAccount -ServicePrincipal -Certificate $Certificate -TenantId $TenantId
+
+
+# Exploring various cmdlets
+
+# List all the Azure PowerShell Modules available
+Get-Module -Name Az.* -ListAvailable
+
+# List the cmdlets in a specific module (e.g., Az.Resources)
+Get-Command -Module Az.Resources
+
+# Filter the cmdlets by verb (e.g., Get) and module
+Get-Command -Verb Get -Module Az.Resources
+
+# Filter the cmdlets by verb (e.g., Get), noun (e.g., VM), and module (e.g., Az.Compute)
+Get-Command -Verb Get -Noun VM -Module Az.Compute
+
+# Get cmdlets by name (e.g., containing "LoadBalancer") within a specific module (e.g., Az.Network)
+Get-Command -Name *LoadBalancer* -Module Az.Network
+
+# <# Available Verbs in Az Module
+
+# These are common verbs used in Azure PowerShell cmdlets to indicate the action they perform.
+# You can use these with Get-Command -Verb <Verb> to find cmdlets.
+
+Add , Clear , Disable , Edit , Enable , Export , Get , Import , Invoke , Join , List , Login , Logout , Move , New ,
+Reactivate , Remove , Repair , Reset , Resolve , Restart , Restore , Resume , Save , Select , Set , Start , Stop ,
+Submit , Suspend , Swap , Sync , Test , Update , Use , Validate , Wait , Disconnect , Register , Send , Unregister ,
+Approve , Backup , Close , Complete , Confirm , Connect , Convert , ConvertTo , Deny , Enter , Grant , Initialize ,
+Install , Lock , Publish , Rename , Resize , Revoke , Switch , Undo , Uninstall , Unpublish
+#>
+
+# Get help for a specific cmdlet
+Get-Help -Name New-AzVirtualNetwork -Detailed
+Get-Help -Name New-AzVirtualNetwork -Full
+Get-Help -Name New-AzVirtualNetwork -Examples
+Get-Help -Name New-AzVirtualNetwork -Online
+
+# Get object members of an Azure resource
+$VM = Get-AzVM -ResourceGroupName test-rg -Name TestVM
+$VM | Get-Member
+
+# Fetching the required information
+
+## Login to Azure
+# Login-AzAccount
+
+# Get the current subscription
+Get-AzContext
+
+# Get all the subscriptions in the current context
+Get-AzContext -ListAvailable
+
+# List all the subscriptions
+Get-AzSubscription | Select-Object -Property Name, State
+
+# To Switch between the subscriptions
+Get-AzSubscription -SubscriptionId '<subscription id>' | Set-AzContext
+#or
+Get-AzSubscription -SubscriptionName '<subscription name>' | Select-AzSubscription | Set-AzContext
+
+
+# Get all resources in the current context
+Get-AzResource
+
+# Get a specific resource by name
+Get-AzResource -Name '<resource name>'
+
+# Get a specific resource by ID
+Get-AzResource -ResourceId '<resource id>'
+
+# Get resources by type
+Get-AzResource -ResourceType 'Microsoft.Compute/virtualMachines'
+Get-AzResource -ResourceType 'Microsoft.Storage/storageAccounts'
+
+# Get resources with specific tags
+Get-AzResource -Tag '<tag name>' -TagValue '<tag value>'
+
+# Get all resource groups in the current context
+Get-AzResourceGroup
+
+# Get virtual machines
+Get-AzVM
+Get-AzVM -ResourceGroupName test-rg
+Get-AzVM -Location eastus
+Get-AzVM -ResourceGroupName test-rg -Name TestVM
+
+# Get storage accounts
+Get-AzStorageAccount -Name '<sa name>'
+Get-AzStorageAccount
+
+# Get virtual networks
+Get-AzVirtualNetwork -Name '<vnet name>'
+Get-AzVirtualNetwork -ResourceGroupName '<rg name>' -Name '<vnet name>'
+Get-AzVirtualNetwork
+
+# Get network security group
+Get-AzNetworkSecurityGroup -ResourceGroupName '<rg name>' -Name '<nsg name>'
+
+# Get network interface
+Get-AzNetworkInterface -ResourceId '<resource id>'
+Get-AzNetworkInterface -ResourceGroupName '<rg name>' -Name '<nic name>'
+Get-AzNetworkInterface
+
+# Get azure locations
+Get-AzLocation | ForEach-Object {$_.Location} # DisplayName
+
+# Get virtual machine sizes
+Get-AzVMSize -Location eastus
+
+## Finding the right OS image
+# Get image publishers
+Get-AzVMImagePublisher -Location eastus # MicrosoftWindowsServer, Canonical
+
+# Get image offerings from the specified publisher
+Get-AzVMImageOffer -Location eastus -PublisherName Canonical # UbuntuServer, UbuntuCore, WindowsServer
+
+# Get the image sku
+Get-AzVMImageSku -Location eastus -PublisherName Canonical -Offer UbuntuServer # 18.04-LTS, 18.10
+
+# List security rules of a network security group
+$NSG = Get-AzNetworkSecurityGroup -ResourceGroupName security-rg -Name nsg1
+$NSG.SecurityRules
+#or
+Get-AzNetworkSecurityGroup -ResourceGroupName security-rg -Name nsg1 | Get-AzNetworkSecurityRuleConfig
+#or
+Get-AzNetworkSecurityRuleConfig -NetworkSecurityGroup $NSG
+
+# Fetch public ip address of a VM
+$VM = Get-AzVM -ResourceGroupName test-rg -Name TestVM
+$VM.PublicIpAddress
+#or (if the VM has an associated Public IP Configuration)
+(Get-AzPublicIpAddress -ResourceGroupName $VM.ResourceGroupName -Name (Get-AzNetworkInterface -ResourceGroupName
+$VM.ResourceGroupName -Name $VM.NetworkProfile.NetworkInterfaces[0].Id.Split('/')[-1]).IpConfigurations[0].PublicIpAddress.Id.Split('/')[-1]).IpAddress
