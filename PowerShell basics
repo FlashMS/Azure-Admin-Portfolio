@@ -12,3 +12,25 @@ Find-Module -Name Az | Install-Module
 Install-Module -Name Az -Force
 #or
 Update-Module -Name Az
+
+Connect-AzAccount
+# Follow the on-screen instructions to authenticate in the web browser.
+
+Connect-AzAccount -Scope Process
+
+# Exploring various cmdlets
+
+# List all the Azure PowerShell Modules available
+Get-Module -Name Az.* -ListAvailable
+
+# List the cmdlets in a specific module (e.g., Az.Resources)
+Get-Command -Module Az.Resources
+
+# Filter the cmdlets by verb (e.g., Get) and module
+Get-Command -Verb Get -Module Az.Resources
+
+# Filter the cmdlets by verb (e.g., Get), noun (e.g., VM), and module (e.g., Az.Compute)
+Get-Command -Verb Get -Noun VM -Module Az.Compute
+
+# Get cmdlets by name (e.g., containing "LoadBalancer") within a specific module (e.g., Az.Network)
+Get-Command -Name *LoadBalancer* -Module Az.Network
