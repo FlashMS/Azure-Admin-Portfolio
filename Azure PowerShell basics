@@ -187,3 +187,99 @@ $VM.PublicIpAddress
 #or (if the VM has an associated Public IP Configuration)
 (Get-AzPublicIpAddress -ResourceGroupName $VM.ResourceGroupName -Name (Get-AzNetworkInterface -ResourceGroupName
 $VM.ResourceGroupName -Name $VM.NetworkProfile.NetworkInterfaces[0].Id.Split('/')[-1]).IpConfigurations[0].PublicIpAddress.Id.Split('/')[-1]).IpAddress
+
+# Display all properties of the VM object
+$VM
+
+
+### Displaying All Properties of a Virtual Machine Object
+
+* **To view all the properties and their values of the `$VM` object we retrieved earlier:**
+
+    ```powershell
+    $VM
+    ```
+
+    This command will output a detailed view of the virtual machine object, including its ID, VM ID, name, type,
+location, tags, and various profiles (Diagnostics, Hardware, Network, OS, and Storage). This is a useful way to inspect all
+the available information about a specific Azure resource.
+
+**Output Interpretation (based on the provided image):**
+
+The image shows a partial output of the `$VM` object, which includes properties like:
+
+* **ResourceGroupName:** `test-rg`
+* **Id:** `/subscriptions/1b7eaa76-c64f-4a0f-b56f-10b25b056be3/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/SimpleVM`
+* **VmId:** `51c723bb-93d8-404e-be83-c32123f9d07d`
+* **Name:** `SimpleVM`
+* **Type:** `Microsoft.Compute/virtualMachines`
+* **Location:** `eastus`
+* **Tags:** `{}` (empty tags)
+* **DiagnosticsProfile:** `BootDiagnostics` (details not fully shown)
+* **HardwareProfile:** `VmSize` (details not fully shown)
+* **NetworkProfile:** `NetworkInterfaces` (details not fully shown)
+* **OSProfile:** `ComputerName`, `AdminUsername`, `LinuxConfiguration`, `Secrets`, `AllowExtensionOperations`, `RequireGuestProvisioning` (details not fully shown)
+* **StorageProfile:** `ImageReference`, `OsDisk`, `DataDisks` (details not fully shown)
+
+By examining the output of the `$VM` object, you can access and utilize any of these properties in your PowerShell scripts for further automation
+or information gathering. For example, to get just the VM's name, you would use `$VM.Name`.
+
+$NICId = $VM.NetworkProfile.NetworkInterfaces[0].Id
+$NIC = Get-AzNetworkInterface -ResourceId $NICId
+
+# Private IP Address
+$NIC.IpConfigurations[0].PrivateIpAddress
+
+$PIPID = $NIC.IpConfigurations[0].PublicIpAddress.Id
+
+### Accessing Network Interface and IP Address Information
+
+#* **Get the ID of the first Network Interface associated with the VM:**
+
+    ```powershell
+    $NICId = $VM.NetworkProfile.NetworkInterfaces[0].Id
+    ```
+
+    This line accesses the `NetworkProfile` property of the `$VM` object, then the `NetworkInterfaces` array (assuming there's at least one),
+and retrieves the `Id` of the first network interface.
+
+* **Get the Network Interface object using its ID:**
+
+    ```powershell
+    $NIC = Get-AzNetworkInterface -ResourceId $NICId
+    ```
+
+    This command uses the `Get-AzNetworkInterface` cmdlet to retrieve the full network interface object using the `$NICId` we obtained in the previous step.
+
+* **Get the Private IP Address of the first IP Configuration:**
+
+    ```powershell
+    $NIC.IpConfigurations[0].PrivateIpAddress
+    ```
+
+    This line accesses the `IpConfigurations` array of the `$NIC` object (again assuming at least one configuration) and retrieves the `PrivateIpAddress`.
+
+* **Get the ID of the Public IP Address associated with the first IP Configuration (if it exists):**
+
+    ```powershell
+    $PIPID = $NIC.IpConfigurations[0].PublicIpAddress.Id
+    ```
+
+    This line attempts to access the `PublicIpAddress` property within the first `IpConfigurations` and retrieves its `Id`. 
+This assumes a public IP address is associated with the network interface.
+If no public IP is associated, this might result in an error or a `$null` value.
+
+These commands demonstrate how to navigate the properties of Azure resource objects in PowerShell to extract specific information, such as
+the IDs and IP addresses of network interfaces associated with
+a virtual machine.
+
+$PIP = Get-AzResource -ResourceId $PIPID
+
+# Public IP Address
+$PIP.Properties.ipAddress
+
+## Working with the objects and formatting the output
+
+Get-AzResource | Select-Object -Property ResourceName, ResourceType, ResourceGroupName
+
+Get-AzResource | Where-Object {$_.ResourceType -eq 'Microsoft.Compute/virtualMachines/extensions'}
