@@ -34,3 +34,25 @@ Get-Command -Verb Get -Noun VM -Module Az.Compute
 
 # Get cmdlets by name (e.g., containing "LoadBalancer") within a specific module (e.g., Az.Network)
 Get-Command -Name *LoadBalancer* -Module Az.Network
+
+# <# Available Verbs in Az Module
+
+# These are common verbs used in Azure PowerShell cmdlets to indicate the action they perform.
+# You can use these with Get-Command -Verb <Verb> to find cmdlets.
+
+Add , Clear , Disable , Edit , Enable , Export , Get , Import , Invoke , Join , List , Login , Logout , Move , New ,
+Reactivate , Remove , Repair , Reset , Resolve , Restart , Restore , Resume , Save , Select , Set , Start , Stop ,
+Submit , Suspend , Swap , Sync , Test , Update , Use , Validate , Wait , Disconnect , Register , Send , Unregister ,
+Approve , Backup , Close , Complete , Confirm , Connect , Convert , ConvertTo , Deny , Enter , Grant , Initialize ,
+Install , Lock , Publish , Rename , Resize , Revoke , Switch , Undo , Uninstall , Unpublish
+#>
+
+# Get help for a specific cmdlet
+Get-Help -Name New-AzVirtualNetwork -Detailed
+Get-Help -Name New-AzVirtualNetwork -Full
+Get-Help -Name New-AzVirtualNetwork -Examples
+Get-Help -Name New-AzVirtualNetwork -Online
+
+# Get object members of an Azure resource
+$VM = Get-AzVM -ResourceGroupName test-rg -Name TestVM
+$VM | Get-Member
