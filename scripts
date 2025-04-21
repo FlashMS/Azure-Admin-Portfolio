@@ -1,0 +1,10 @@
+Azure-Admin-Portfolio/
+├── scripts/
+│   ├── deploy-resources.ps1        # PowerShell script to create Azure resources
+│   ├── delete-resources.ps1        # PowerShell script to clean up resources
+│   ├── cli-commands.sh             # Bash script with Azure CLI commands
+├── .github/workflows/
+│   ├── azure-deploy.yml           # GitHub Actions workflow to run scripts
+├── README.md                      # Project overview and instructions
+└── LICENSE                        # MIT License for open-source sharing
+
