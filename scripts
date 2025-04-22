@@ -1,10 +1,78 @@
-Azure-Admin-Portfolio/
-├── scripts/
-│   ├── deploy-resources.ps1        # PowerShell script to create Azure resources
-│   ├── delete-resources.ps1        # PowerShell script to clean up resources
-│   ├── cli-commands.sh             # Bash script with Azure CLI commands
-├── .github/workflows/
-│   ├── azure-deploy.yml           # GitHub Actions workflow to run scripts
-├── README.md                      # Project overview and instructions
-└── LICENSE                        # MIT License for open-source sharing
+# deploy-resources.ps1
+# PowerShell script to create Azure resources for portfolio demo
 
+# Variables
+$resourceGroupName = "PortfolioDemoRG"
+$location = "eastus"
+$storageAccountName = "portfoliodemo$(Get-Random -Minimum 1000 -Maximum 9999)"
+$vnetName = "PortfolioVNet"
+$subnetName = "DefaultSubnet"
+$vnetAddressSpace = "10.0.0.0/16"
+$subnetAddressSpace = "10.0.1.0/24"
+
+# Ensure Azure PowerShell module is installed
+if (-not (Get-Module -ListAvailable -Name Az)) {
+    Write-Host "Installing Az module..."
+    Install-Module -Name Az -Scope CurrentUser -Force
+}
+
+# Connect to Azure
+Connect-AzAccount
+
+# Create Resource Group
+Write-Host "Creating resource group: $resourceGroupName"
+New-AzResourceGroup -Name $resourceGroupName -Location $location
+
+# Create Storage Account
+Write-Host "Creating storage account: $storageAccountName"
+New-AzStorageAccount -ResourceGroupName $resourceGroupName `
+                    -Name $storageAccountName `
+                    -Location $location `
+                    -SkuName Standard_LRS `
+                    -Kind StorageV2
+
+# Create Virtual Network with Subnet
+Write-Host "Creating virtual network: $vnetName"
+$subnetConfig = New-AzVirtualNetworkSubnetConfig -Name $subnetName `
+                                                -AddressPrefix $subnetAddressSpace
+New-AzVirtualNetwork -ResourceGroupName $resourceGroupName `
+                    -Name $vnetName `
+                    -Location $location `
+                    -AddressPrefix $vnetAddressSpace `
+                    -Subnet $subnetConfig
+
+Write-Host "Resources created successfully!"
+
+# delete-resources.ps1
+# PowerShell script to clean up Azure resources
+
+# Variables
+$resourceGroupName = "PortfolioDemoRG"
+
+# Connect to Azure
+Connect-AzAccount
+
+# Delete Resource Group
+Write-Host "Deleting resource group: $resourceGroupName"
+Remove-AzResourceGroup -Name $resourceGroupName -Force
+
+Write-Host "Resources deleted successfully!"
+
+#!/bin/bash
+# cli-commands.sh
+# Azure CLI commands to manage resources
+
+# Variables
+resourceGroupName="PortfolioDemoRG"
+storageAccountName="portfoliodemo*"
+
+# Log in to Azure (interactive, for demo purposes)
+az login
+
+# List all resource groups
+echo "Listing resource groups:"
+az group list --output table
+
+# Check storage account details (using wildcard for demo)
+echo "Checking storage account details:"
+az storage account show --name $storageAccountName --resource-group $resourceGroupName --query "[name,primaryEndpoints.blob]" --output table
