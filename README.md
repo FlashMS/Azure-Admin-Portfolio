@@ -54,7 +54,7 @@ Push to main branch to trigger azure-deploy.yml.
 
 
 Usage
-
+Tested deployment on 2025-06-09 at 03:05 PM EDT
 Deploy Resources: Run deploy-resources.ps1 to create resources.
 Check Resources: Use cli-commands.sh to list or verify resources.
 Clean Up: Run delete-resources.ps1 to delete resources.
