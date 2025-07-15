@@ -1,1 +1,2 @@
-
+New-AzResourceGroup -Name "MonitorRG" -Location "eastus"
+New-AzOperationalInsightsWorkspace -ResourceGroupName "MonitorRG" -Name "LogWorkspace" -Location "eastus" -Sku Standard
