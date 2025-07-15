@@ -36,6 +36,15 @@ Skills Demonstrated
 
 PowerShell: Scripting for Azure resource management. Azure CLI: Basic resource monitoring and querying. YAML/DevOps: CI/CD pipeline automation with GitHub Actions. Networking: Virtual network configuration (e.g., VNet, subnets). Cloud Administration: Resource lifecycle management and security best practices.
 
+## Monitoring Module
+This module sets up a Log Analytics workspace and a basic CPU alert rule for a VM.
+
+### Scripts
+- `create-log-workspace.ps1`: Deploys a Log Analytics workspace.
+- `set-alert-rule.ps1`: Adds a metric alert for high CPU.
+
+### Usage
+Run each script in order to enable monitoring and alerts for your virtual machine.
 License MIT License. See LICENSE for details.
 
 Contact Built by Todd Wolf. Connect on LinkedIn: https://www.linkedin.com/in/todd-wolf-9a3505264/ GitHub: https://github.com/FlashMS
