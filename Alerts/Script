@@ -1,2 +1,14 @@
-Add-AzMetricAlertRuleV2 -Name "CpuHighAlert" -ResourceGroupName "MonitorRG" -TargetResourceId "/subscriptions/<subId>/resourceGroups/MonitorRG/providers/Microsoft.Compute/virtualMachines/myVM" `
--WindowSize 00:05:00 -Frequency 00:01:00 -CriteriaOperator GreaterThan -Threshold 80 -MetricName "Percentage CPU" -Description "CPU usage over 80%"
+$vmId = "/subscriptions/<yourSubId>/resourceGroups/MonitorRG/providers/Microsoft.Compute/virtualMachines/myVM"
+
+$criteria = New-AzMetricAlertRuleV2Criteria -MetricName "Percentage CPU" `
+  -TimeAggregation Average `
+  -Operator GreaterThan `
+  -Threshold 80
+
+Add-AzMetricAlertRuleV2 -Name "CpuHighAlert" `
+  -ResourceGroupName "MonitorRG" `
+  -TargetResourceId $vmId `
+  -WindowSize 00:05:00 `
+  -Frequency 00:01:00 `
+  -Criteria $criteria `
+  -Location "eastus"
