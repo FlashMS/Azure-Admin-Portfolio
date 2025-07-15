@@ -1,0 +1,4 @@
+monitoring/
+├── create-log-workspace.ps1
+├── set-alert-rule.ps1
+├── README.md
