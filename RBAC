@@ -1,4 +1,1 @@
-rbac/
-├── assign-role.ps1      # Assigns RBAC roles to identities
-├── check-role.ps1       # Verifies role assignments
-├── README.md            # Describes both scripts and usage
+
