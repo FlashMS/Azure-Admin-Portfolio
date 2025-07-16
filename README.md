@@ -53,6 +53,10 @@ Tier II module for Azure monitoring tasks. Includes:
 
 ### Usage
 Run each script in order to enable monitoring and alerts for your virtual machine.
+
+rbac/: Role assignment module (Tier II) with PowerShell scripts
+monitoring/: Azure workspace + alert rule setup
+
 License MIT License. See LICENSE for details.
 
 Contact Built by Todd Wolf. Connect on LinkedIn: https://www.linkedin.com/in/todd-wolf-9a3505264/ GitHub: https://github.com/FlashMS
