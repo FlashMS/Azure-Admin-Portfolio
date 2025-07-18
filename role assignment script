@@ -1,0 +1,18 @@
+param (
+    [string]$SubscriptionId,
+    [string]$ResourceGroupName,
+    [string]$RoleDefinitionName = "Contributor",
+    [string]$PrincipalId  # Object ID of user, group, or service principal
+)
+
+# Login and set context
+az account set --subscription $SubscriptionId
+
+# Assign role
+az role assignment create `
+    --assignee-object-id $PrincipalId `
+    --role $RoleDefinitionName `
+    --resource-group $ResourceGroupName
+
+Write-Host "✅ Role '$RoleDefinitionName' assigned to principal '$PrincipalId' in resource group '$ResourceGroupName'"
+

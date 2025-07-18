@@ -1,8 +1,0 @@
-$resourceGroup = "MonitorRG"
-$roleName = "Reader"  # Options: Reader, Contributor, Owner, etc.
-$signInName = "<user@domain.com>"  # Replace with a real Azure AD user or SPN
-
-New-AzRoleAssignment `
-  -RoleDefinitionName $roleName `
-  -ResourceGroupName $resourceGroup `
-  -SignInName $signInName
