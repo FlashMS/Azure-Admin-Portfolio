@@ -12,3 +12,34 @@ This portfolio is a modular, automation-ready toolkit designed for hybrid cloud 
 
 ## Folder Structure
 
+Azure-Admin-Portfolio/
+├── README.md
+├── PowerShellToolkit/
+│   ├── initProfile.ps1
+│   ├── aliases.ps1
+│   ├── sessionTracker.ps1
+│   └── tools/
+│       ├── syncLogs.ps1
+│       └── archiveLogs.ps1
+├── Monitoring/
+│   ├── README.md
+│   ├── LogAnalytics/
+│   ├── Alerts/
+│   └── Metrics/
+├── RBAC/
+│   ├── define-roles.ps1
+│   └── assign-role.ps1
+├── IaC/
+│   └── deploy-vnet.bicep
+├── scripts/
+│   ├── deploy-resources.ps1
+│   ├── delete-resources.ps1
+│   └── cli-commands.sh
+├── .github/
+│   └── workflows/
+│       └── azure-deploy.yml
+├── validate.yml
+├── rbac/
+├── Tier II Monitoring Module/
+└── role assignment script/
+
