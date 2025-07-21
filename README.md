@@ -17,6 +17,7 @@ Infrastructure as Code samples for scalable provisioning
 Folder Structure
 
 Azure-Admin-Portfolio/
+```
 ├── README.md
 ├── PowerShellToolkit/
 │   ├── initProfile.ps1
@@ -46,6 +47,7 @@ Azure-Admin-Portfolio/
 ├── rbac/
 ├── Tier II Monitoring Module/
 └── role assignment script/
+```
 
 Getting Started
 
