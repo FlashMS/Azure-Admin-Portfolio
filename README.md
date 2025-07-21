@@ -1,6 +1,8 @@
-Azure-Admin-Portfolio
+## Azure-Admin-Portfolio
 
-This portfolio is a modular, automation-ready toolkit designed for hybrid cloud administrators. It showcases resilient PowerShell scripting, session continuity workflows, and secure Azure deployment practices — all built with portability, recovery, and clarity in mind.
+This portfolio demonstrates resilient, modular Azure administration through hands-on scripting and cloud-native workflows. It highlights key capabilities including role-based access control, proactive monitoring, and portable PowerShell tooling—built for continuity across environments like WSL, Azure Cloud Shell, and Git Bash.
+
+Each module is structured for reuse, discoverability, and clarity, with scoped READMEs that explain purpose and implementation. Whether deploying infrastructure, recovering session context, or assigning permissions, this repo reflects the practical automation mindset of a cloud engineer ready to scale operational efficiency.
 
 Key Features
 
