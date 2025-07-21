@@ -1,0 +1,24 @@
+# PowerShellToolkit
+
+This module contains portable, script-first tooling for session management, logging, and recovery across PowerShell-based environments.
+
+## 🔧 Key Scripts
+
+- `initProfile.ps1` – Bootstraps your modular PowerShell session, loading aliases, tools, and logging logic.
+- `aliases.ps1` – Centralizes reusable shorthand and command mappings to streamline multi-shell navigation.
+- `sessionTracker.ps1` – Tracks command execution, timestamping, and session metadata for troubleshooting and continuity.
+
+## 📁 Subfolder: tools/
+
+Utilities for log management:
+
+- `syncLogs.ps1` – Syncs local session logs to a remote location or shared workspace.
+- `archiveLogs.ps1` – Archives or compresses stale log files based on age or naming conventions.
+
+## 💡 Why It Matters
+
+This toolkit simplifies repeatable session prep, reduces cold-start friction, and allows fast onboarding into any shell — Cloud Shell, WSL, Git Bash, or native PowerShell. It’s designed for modular sourcing and easy reuse across workflows.
+
+---
+
+_Last updated: July 2025_
