@@ -1,62 +1,28 @@
-Azure Admin Portfolio
+# Azure Admin Portfolio 🚀
 
-This repository showcases my Azure administration skills using PowerShell, Azure CLI, and GitHub Actions. It automates the creation and management of Azure resources, demonstrating expertise in cloud administration and DevOps.
+This repository showcases my Azure administration skills using PowerShell, Azure CLI, and GitHub Actions. It automates the creation and management of Azure resources, demonstrating expertise in cloud administration, DevOps, and modular workflow recovery.
 
-Project Overview The project creates and manages Azure resources (resource group, storage account, virtual network) using:
+---
 
-PowerShell: Scripts to deploy and delete resources. Azure CLI: Commands to list and check resources. GitHub Actions: YAML workflow to automate deployment.
+## 🧠 Project Overview
 
-Repository Structure
+This portfolio includes:
+- **PowerShell scripts** for deploying and deleting Azure resources
+- **Azure CLI commands** for querying and monitoring
+- **GitHub Actions workflows** to automate deployments and CI/CD tasks
+- **Monitoring and RBAC modules** to simulate real-world cloud operations
+- **Modular PowerShell profile tools** to support session continuity and scripting reuse
 
-scripts/ deploy-resources.ps1: Creates Azure resources. delete-resources.ps1: Deletes resources to avoid costs. cli-commands.sh: Azure CLI commands for resource management.
+---
 
-.github/workflows/azure-deploy.yml: Automates deployment with GitHub Actions. README.md: Project documentation.
+## 📦 Repository Structure
 
-Prerequisites
-
-Azure account with active subscription. PowerShell 7+ with Az module (Install-Module -Name Az). Azure CLI installed (az login). GitHub repository with secrets configured (see Setup).
-
-Setup
-
-Clone the Repository: git clone https://github.com/FlashMS/Azure-Admin-Portfolio.git
-
-Configure Azure Credentials: Create an Azure service principal: az ad sp create-for-rbac --name "PortfolioSP" --role Contributor --scopes /subscriptions/
-
-Add the output (JSON with clientId, clientSecret, tenantId, subscriptionId) to GitHub Secrets as AZURE_CREDENTIALS.
-
-Run Locally:
-
-PowerShell: .\scripts\deploy-resources.ps1 CLI: bash ./scripts/cli-commands.sh
-
-GitHub Actions: Push to main branch to trigger azure-deploy.yml..
-
-Usage Tested deployment on 2025-06-09 at 03:05 PM EDT Deploy Resources: Run deploy-resources.ps1 to create resources. Check Resources: Use cli-commands.sh to list or verify resources. Clean Up: Run delete-resources.ps1 to delete resources. Automation: GitHub Actions runs deploy-resources.ps1 on push to main.
-
-Skills Demonstrated
-
-PowerShell: Scripting for Azure resource management. Azure CLI: Basic resource monitoring and querying. YAML/DevOps: CI/CD pipeline automation with GitHub Actions. Networking: Virtual network configuration (e.g., VNet, subnets). Cloud Administration: Resource lifecycle management and security best practices.
-
-## Monitoring
-
-Tier II module for Azure monitoring tasks. Includes:
-
-- `create-log-workspace.ps1`: Deploys a Log Analytics workspace using PerGB2018 SKU.
-- `set-cpu-alert.ps1`: Defines a CPU metric alert (simulated if no VM exists).
-
-> Alert rule requires a deployed VM in `MonitorRG`. Demo mode skips alert provisioning.  
-> See `/monitoring/README.md` for full details.
-
-
-### Scripts
-- `create-log-workspace.ps1`: Deploys a Log Analytics workspace.
-- `set-alert-rule.ps1`: Adds a metric alert for high CPU.
-
-### Usage
-Run each script in order to enable monitoring and alerts for your virtual machine.
-
-rbac/: Role assignment module (Tier II) with PowerShell scripts
-monitoring/: Azure workspace + alert rule setup
-
-License MIT License. See LICENSE for details.
-
-Contact Built by Todd Wolf. Connect on LinkedIn: https://www.linkedin.com/in/todd-wolf-9a3505264/ GitHub: https://github.com/FlashMS
+```text
+Azure-Admin-Portfolio/
+├── PowerShellToolkit/        # Modular profile, aliases, tracker
+├── Monitoring/               # Log Analytics, Alerts, Metrics
+├── RBAC/                     # Role assignment modules
+├── IaC/                      # Terraform and Bicep templates
+├── scripts/                  # Resource lifecycle scripts
+├── .github/workflows/        # CI/CD GitHub Actions
+└── README.md
