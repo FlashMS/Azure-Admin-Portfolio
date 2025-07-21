@@ -1,11 +1,11 @@
 # RBAC
 
-This module contains scripts for defining and assigning Azure role-based access control (RBAC) permissions using PowerShell.
+This module contains scripts for assigning and verifying Azure role-based access control (RBAC) permissions using PowerShell.
 
 ## Included Scripts
 
-- `define-roles.ps1` – Creates custom roles with specified actions and scope definitions.
 - `assign-role.ps1` – Assigns built-in or custom roles to users, groups, or service principals.
+- `verify-role.ps1` – Validates role assignments and lists role definitions by scope.
 
 ## Purpose
 
@@ -13,12 +13,6 @@ These scripts demonstrate control over Azure resource permissions using modular 
 
 ## Notes
 
-- Role definitions follow Azure RBAC schema with customizable `Actions`, `NotActions`, and `AssignableScopes`.
-- Assignments rely on valid principal IDs and scoped resource contexts.
+- Role assignments rely on valid principal IDs and scoped resource contexts.
+- Verification supports troubleshooting and documentation of current access states.
 
-
-
-rbac/
-├── assign-role.ps1
-├── verify-role.ps1
-├── README.md
