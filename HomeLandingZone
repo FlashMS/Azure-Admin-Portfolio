@@ -1,0 +1,19 @@
+/HomeLandingZone/
+│
+├── README.md                          # Project overview
+├── Identity-Access/
+│   └── identity.ps1                   # Local user audit + password policy
+├── Network-Topology/
+│   └── networkmap.ps1                 # IP scan, device discovery
+├── Resource-Organization/
+│   └── tagging-model.md               # Labels for device categories
+├── Security/
+│   └── security-audit.ps1             # Antivirus/Firewall checks
+├── Management/
+│   └── logging-monitoring.ps1        # Event log extraction
+├── Governance/
+│   └── usage-policy.md                # Rules, update policies
+├── Platform-Automation/
+│   └── device-setup.ps1               # Bootstrapping scripts
+├── Billing-Tenant/
+│   └── cost-tracker.md               # ISP + cloud service costs
