@@ -1,21 +1,18 @@
 name: Azure Deployment
+
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-<<<<<<< HEAD
-# Your current version
-=======
-# The incoming changes from dd100fb
->>>>>>> dd100fb
-
+          creds: ${{ secrets.AZURE_CREDENTIALS }} # Azure service principal credentials
